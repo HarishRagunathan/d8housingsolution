@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['owner', 'worker', 'consumer'], required: true },
-  phone: { type: String, required: true }
+  phone: { type: String, required: true },
+  leave: { type: Boolean, default: false }, // Added field
 });
 
 userSchema.pre('save', async function (next) {
