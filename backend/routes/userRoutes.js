@@ -72,4 +72,32 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+// Leave Route
+router.put('/worker/:id/leave', async (req, res) => {
+  const { id } = req.params; // Get worker ID from URL parameters
+  const { leave } = req.body; // Leave status (true/false) from request body
+
+  try {
+    // Find the worker by ID and update the leave status
+    const worker = await User.findByIdAndUpdate(
+      id,
+      { leave },
+      { new: true, runValidators: true } // Return the updated document
+    ).select('-password'); // Exclude password field
+
+    if (!worker || worker.role !== 'worker') {
+      return res.status(404).json({ error: 'Worker not found or invalid role' });
+    }
+
+    res.status(200).json({ message: 'Leave status updated successfully', worker });
+  } catch (error) {
+    console.error('Error updating leave status:', error);
+    res.status(500).json({ error: 'Server error while updating leave status' });
+  }
+});
+
+
 module.exports = router;
+
+
