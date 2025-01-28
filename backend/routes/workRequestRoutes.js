@@ -132,5 +132,34 @@ router.put('/generate-bill/:id', async (req, res) => {
   }
 });
 
+router.post('/work-request/:id/review', async (req, res) => {
+  const { id } = req.params; // ID of the WorkRequest
+  const { review } = req.body; // Review comment from the request body
+
+  try {
+    // Validate input
+    if (!review || typeof review !== 'string') {
+      return res.status(400).json({ error: 'Review is required and must be a string' });
+    }
+
+    // Find the WorkRequest by ID and update the review field
+    const workRequest = await WorkRequest.findByIdAndUpdate(
+      id,
+      { review },
+      { new: true } // Return the updated document
+    );
+
+    if (!workRequest) {
+      return res.status(404).json({ error: 'Work request not found' });
+    }
+
+    // Send the updated WorkRequest as a response
+    res.status(200).json({ message: 'Review added successfully', workRequest });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 module.exports = router;
