@@ -132,7 +132,7 @@ router.put('/generate-bill/:id', async (req, res) => {
   }
 });
 
-router.post('/work-request/:id/review', async (req, res) => {
+router.post('/work-request/review/:id', async (req, res) => {
   const { id } = req.params; // ID of the WorkRequest
   const { review } = req.body; // Review comment from the request body
 
