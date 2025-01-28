@@ -8,8 +8,9 @@ const workRequestSchema = new mongoose.Schema({
   workTiming: { type: String, required: true },
   date: { type: String, required: true },
   worker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  WorkDuriation:{ type: String},
+  WorkDuriation: { type: String },
   billAmount: { type: Number },
+  review: { type: String } // Only comment field for the review
 });
 
 module.exports = mongoose.model('WorkRequest', workRequestSchema);
