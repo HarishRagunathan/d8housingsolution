@@ -161,5 +161,27 @@ router.post('/work-request/review/:id', async (req, res) => {
   }
 });
 
+router.get('/work-request/review/view/:id', async (req, res) => {
+  const { id } = req.params; // Extracting ID from request parameters
+
+  try {
+    // Find the work request by ID and populate the consumer and worker details
+    const workRequest = await WorkRequest.findById(id)
+      .populate('consumer', 'name email') // Adjust fields as needed
+      .populate('worker', 'name email'); 
+
+    // If no work request found, return 404
+    if (!workRequest) {
+      return res.status(404).json({ error: 'Work request not found' });
+    }
+
+    // Return the found work request
+    res.status(200).json(workRequest);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 module.exports = router;

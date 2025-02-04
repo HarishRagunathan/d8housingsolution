@@ -10,7 +10,7 @@ const workRequestSchema = new mongoose.Schema({
   worker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   WorkDuriation: { type: String },
   billAmount: { type: Number },
-  review: { type: String } // Only comment field for the review
+  review: { type: String } 
 });
 
 module.exports = mongoose.model('WorkRequest', workRequestSchema);
