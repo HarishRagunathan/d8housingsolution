@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const workRequestSchema = new mongoose.Schema({
-  workType: { type: String, enum: ['Plumbing', 'Electrical'], required: true },
+  workType: { type: String, enum: ['Plumbing', 'Electrical','Painting','Carpenting','Tiles','Mesan','Welding'], required: true },
   consumer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   address: { type: String, required: true },
   phone: { type: String, required: true },
